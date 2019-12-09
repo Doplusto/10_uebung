@@ -24,32 +24,34 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
     public Client(String user, URL base) {
         super(base);
         this.user = user;
-        //initMqtt();
+        initMqtt();
     }
 
     @Override
     public String getHello() {
-        // todo: Implementieren Sie hier den Aufruf, um den /hello Endpunkt abzurufen
-        return null;
+        // Implementieren Sie hier den Aufruf, um den /hello Endpunkt abzurufen
+        return this.call(RESTCall.GET, "/hello", String.class);
     }
 
     @Override
     public List<Message> getMessages() {
-        // todo: Implementieren Sie hier den Aufruf, um den /messages/:name Endpunkt abzurufen
-        return null;
+        // Implementieren Sie hier den Aufruf, um den /messages/:name Endpunkt abzurufen
+        return this.call(RESTCall.GET, "/messages/" + user);
     }
 
     @Override
     public String sendMessage(String toUser, String messageText) {
-        // todo: Implementieren Sie hier den Aufruf, um ein Nachricht an den /messages/:toName Endpunkt zu schicken
-        return null;
+        // Implementieren Sie hier den Aufruf, um ein Nachricht an den /messages/:toName Endpunkt zu schicken
+        Message msg = new Message(this.user, messageText);
+        return this.call(RESTCall.POST, "/messages/" + toUser, msg, String.class);
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         String msg = new String(message.getPayload());
         if ("New message".equals(msg)) {
-            // todo: new message should be handled here
+            // new message should be handled here
+            this.getMessages();
         }
     }
 
@@ -78,7 +80,11 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
         Client  c = new Client("test", new URL("http://localhost:8080"));
         System.out.println(c.getHello());
 
-        System.out.println(c.sendMessage("Test", "Hallo Welt!"));
+        System.out.println(c.sendMessage("Test2", "Hallo Welt!"));
+
+        System.out.println(c.getMessages());
+
+        System.out.println(c.sendMessage("test", "Hallo Welt!"));
 
         System.out.println(c.getMessages());
     }

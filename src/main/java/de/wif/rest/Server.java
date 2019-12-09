@@ -70,12 +70,9 @@ public class Server {
         get("/messages/:name", (request, response) -> {
             try {
                 String user = request.params(":name");
-                if (this.messages.containsKey(user)) {
-                    List<Message> msgs = this.messages.get(user);
-                    this.messages.remove(user);
-                    return gson.toJson(msgs);
-                }
-                return gson.toJson("No new messages!");
+                List<Message> msgs = this.messages.getOrDefault(user, new ArrayList<Message>());
+                this.messages.remove(user);
+                return gson.toJson(msgs);
             }
             catch (Exception ex) {
                 return gson.toJson("An error occured: " + ex.getMessage());
