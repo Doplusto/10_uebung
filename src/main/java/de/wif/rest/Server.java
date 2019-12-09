@@ -79,6 +79,8 @@ public class Server {
             }
         });
 
+        // todo: get Message Count /messages/:name/count
+
         post("/messages/:toName", (request, response) -> {
             try {
                 Message message = gson.fromJson(request.body(), Message.class);
@@ -116,7 +118,7 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server s = new Server(true);
+        Server s = new Server(false);
         s.run();
     }
 }

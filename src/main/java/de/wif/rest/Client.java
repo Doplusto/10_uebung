@@ -29,35 +29,39 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
 
     @Override
     public String getHello() {
-        // Implementieren Sie hier den Aufruf, um den /hello Endpunkt abzurufen
-        return this.call(RESTCall.GET, "/hello", String.class);
+        // todo: Implementieren Sie hier den Aufruf, um den /hello Endpunkt abzurufen
+        return null;
+    }
+
+    @Override
+    public String getMessageCount() {
+        // todo: Implementieren Sie hier den Aufruf, um den /messages/:name Endpunkt abzurufen
+        return null;
     }
 
     @Override
     public List<Message> getMessages() {
-        // Implementieren Sie hier den Aufruf, um den /messages/:name Endpunkt abzurufen
-        return this.call(RESTCall.GET, "/messages/" + user);
+        // todo: Implementieren Sie hier den Aufruf, um den /messages/:name Endpunkt abzurufen
+        return null;
     }
 
     @Override
     public String sendMessage(String toUser, String messageText) {
-        // Implementieren Sie hier den Aufruf, um ein Nachricht an den /messages/:toName Endpunkt zu schicken
-        Message msg = new Message(this.user, messageText);
-        return this.call(RESTCall.POST, "/messages/" + toUser, msg, String.class);
+        // todo: Implementieren Sie hier den Aufruf, um ein Nachricht an den /messages/:toName Endpunkt zu schicken
+        return null;
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         String msg = new String(message.getPayload());
         if ("New message".equals(msg)) {
-            // new message should be handled here
-            this.getMessages();
+            // todo: new message should be handled here
         }
     }
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-        // ignire
+        // ignore
     }
 
     @Override
@@ -82,9 +86,13 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
 
         System.out.println(c.sendMessage("Test2", "Hallo Welt!"));
 
+        System.out.println(c.getMessageCount());
+
         System.out.println(c.getMessages());
 
         System.out.println(c.sendMessage("test", "Hallo Welt!"));
+
+        System.out.println(c.getMessageCount());
 
         System.out.println(c.getMessages());
     }

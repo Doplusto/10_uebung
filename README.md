@@ -20,7 +20,7 @@ Diese verwendet [`Spark`](http://sparkjava.com/), ein kleines Framework, um Web 
 Der Server bietet 3 Endpunkte:
 1. `GET /hello` : Dient zum einfachen Testen, ob der Server auch wirklich läuft. Ein Aufruf an diesen Endpunkt hat das Format: `GET http://localhost:8080/hello`
 1. `GET /messages/:name` : Zum Abrufen von Nachrichten für einen bestimmten Benutzer (`:name`). Dabei ist `:` nur ein Marker. Ein Aufruf an diesen Endpunkt hat das Format: `GET http://localhost:8080/messages/mustermann`
-1. `POST /messages/:toName` : Zum Verschicken einer Nachricht an den Benutzer (`:toName`). Dabei ist `:` nur ein Marker. Ein Aufruf an diesen Endpunkt hat das Format: `POST http://localhost:8080/messages/mustermann` +HTTP Body: `"{\"toUser\":\"test\", \"fromUser\":\"Marcel\",\"Bmessage\":\"Hallo\"}"`
+1. `POST /messages/:toName` : Zum Verschicken einer Nachricht an den Benutzer (`:toName`). Dabei ist `:` nur ein Marker. Ein Aufruf an diesen Endpunkt hat das Format: `POST http://localhost:8080/messages/mustermann` +HTTP Body: `"{\"toUser\":\"test\", \"fromUser\":\"Marcel\",\"message\":\"Hallo\"}"`
 
 Der Code für den Server befindet sich in [./src/main/java/de/wif/rest](./src/main/java/de/wif/rest).
 
@@ -33,13 +33,16 @@ Machen Sie folgendes:
 1. Schauen Sie sich den Code an und versuchen zu verstehen, was in den jeweiligen Pfaden in der `init()` Methode passiert
 1. Testen Sie, ob der Server läuft, in dem Sie in ihrem Browser den entprechenden `/hello` Pfad aufrufen! 
 
+
 b)
 
 Testen Sie die Endpunkte, in dem Sie entsprechende `Curl`-Aufrufe definieren. Benutzen Sie entweder die `Git Bash` (Windows) oder `Terminal` (Mac/Linux).
 
 1. Schreiben Sie den `Curl`-Aufruf fur `GET /hello`
 1. Schreiben Sie den `Curl`-Aufruf fur `GET /messages/:name`
-1. Schreiben Sie den `Curl`-Aufruf fur `POST /messages/:toName`. Bedenken Sie, dass Sie hier Daten im Request-Body im JSON Forat uebergeben muessen!
+1. Schreiben Sie den `Curl`-Aufruf fur `POST /messages/:toName`. Bedenken Sie, dass Sie hier Daten im Request-Body im JSON Format übergeben müssen!
+1. Erweitern Sie den Server um einen Pfad `GET /messages/:name/count`. Dieser soll die Anzahl verfügbarer neuen Nachrichten zurückgeben, als JSON `{"Count" : 4}`. 
+1. Schreiben Sie den `Curl`-Aufruf fur `GET /messages/:name/count`. Kommt die korrekte Anzahl zurück
 1. Schreiben Sie ein Skript (test.sh), dass die `Curl`-Aufrufe von 2. und 3. kombiniert. Welche Szenarien gibt es? 
 
 **Lösung siehe: ./src/main/shell/test.sh**
@@ -50,9 +53,13 @@ Schreiben Sie einen `Client.java`, der die REST Aufrufe ausführt. Verwenden Sie
 
 1. Schreiben Sie die Methode `sendHello`
 1. Schreiben Sie die Methode `sendMessage`
+1. Schreiben Sie die Methode `getMessageCount`
 1. Schreiben Sie die Methode `getMessages`
 
-Halten Sie sich jeweils an die gegebenen Methodensignaturen und verwenden Sie die Hilfsmethoden wo möglich.
+Halten Sie sich jeweils an die gegebenen Methodensignaturen und verwenden Sie die Hilfsmethoden wo möglich. In der Klasse `RESTCall` gibt es entsprechende Methoden, die 
+einen REST-Call absetzen können. Diese haben die Form:;
+- GET  :  `call(RESTCall.GET, "/jokes/random", JokeRepsonse.class);`
+- POST :  `call(RESTCall.POST, "/jokes/add",  MyRequestBodyWhateverItIsInstance, String.class);`
 
 
 
