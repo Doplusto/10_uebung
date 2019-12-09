@@ -35,7 +35,7 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
 
     @Override
     public String getMessageCount() {
-        // todo: Implementieren Sie hier den Aufruf, um den /messages/:name Endpunkt abzurufen
+        // todo: Implementieren Sie hier den Aufruf, um den /messages/:name/count Endpunkt abzurufen
         return null;
     }
 
