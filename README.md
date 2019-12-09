@@ -42,6 +42,8 @@ Testen Sie die Endpunkte, in dem Sie entsprechende `Curl`-Aufrufe definieren. Be
 1. Schreiben Sie den `Curl`-Aufruf fur `POST /messages/:toName`. Bedenken Sie, dass Sie hier Daten im Request-Body im JSON Forat uebergeben muessen!
 1. Schreiben Sie ein Skript (test.sh), dass die `Curl`-Aufrufe von 2. und 3. kombiniert. Welche Szenarien gibt es? 
 
+**Lösung siehe: ./src/main/shell/test.sh**
+
 ## Aufgabe 2: REST Client  
 
 Schreiben Sie einen `Client.java`, der die REST Aufrufe ausführt. Verwenden Sie hierzu die `Client` Klasse und ersetzen die `\\ todo` mit enstprechenden Code.
@@ -51,6 +53,8 @@ Schreiben Sie einen `Client.java`, der die REST Aufrufe ausführt. Verwenden Sie
 1. Schreiben Sie die Methode `getMessages`
 
 Halten Sie sich jeweils an die gegebenen Methodensignaturen und verwenden Sie die Hilfsmethoden wo möglich.
+
+
 
 ## Aufgabe 3: Benachrichtigungen via Messages
 

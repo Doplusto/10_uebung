@@ -7,4 +7,9 @@ public class Message {
 
     private String message;
 
+    public Message(String fromUser, String msg) {
+        this.fromUser = fromUser;
+        this.message = msg;
+    }
+
 }
