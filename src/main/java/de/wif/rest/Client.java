@@ -40,6 +40,12 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
     }
 
     @Override
+    public String getMessageCount() {
+        // Implementieren Sie hier den Aufruf, um den /messages/:name/count Endpunkt abzurufen
+        return this.call(RESTCall.GET, "/messages/" + user + "/count", String.class);
+    }
+
+    @Override
     public String sendMessage(String toUser, String messageText) {
         // Implementieren Sie hier den Aufruf, um ein Nachricht an den /messages/:toName Endpunkt zu schicken
         Message msg = new Message(this.user, messageText);
@@ -82,9 +88,13 @@ public class Client extends RESTCall implements ChatClient, MqttCallback {
 
         System.out.println(c.sendMessage("Test2", "Hallo Welt!"));
 
+        System.out.println(c.getMessageCount());
+
         System.out.println(c.getMessages());
 
         System.out.println(c.sendMessage("test", "Hallo Welt!"));
+
+        System.out.println(c.getMessageCount());
 
         System.out.println(c.getMessages());
     }

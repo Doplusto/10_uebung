@@ -6,6 +6,7 @@ public interface ChatClient {
 
     String getHello();
     List<Message> getMessages();
+    String getMessageCount();
     String sendMessage(String toUser, String messageText);
 
 }

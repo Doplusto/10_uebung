@@ -79,6 +79,18 @@ public class Server {
             }
         });
 
+        get("/messages/:name/count", (request, response) -> {
+            try {
+                String user = request.params(":name");
+                List<Message> msgs = this.messages.getOrDefault(user, new ArrayList<Message>());
+                this.messages.remove(user);
+                return gson.toJson(msgs.size());
+            }
+            catch (Exception ex) {
+                return gson.toJson("An error occured: " + ex.getMessage());
+            }
+        });
+
         post("/messages/:toName", (request, response) -> {
             try {
                 Message message = gson.fromJson(request.body(), Message.class);
