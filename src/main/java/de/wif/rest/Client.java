@@ -4,15 +4,27 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class Client extends RESTCall implements ChatClient {
+import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+
+public class Client extends RESTCall implements ChatClient, MqttCallback {
+
+    // username
+    private String user;
+
+    // add MQTT
+    private MqttClient mqttClient;
 
     /**
      * Creates an instance of RESTCall.
      *
      * @param base Base URL of the endpoint
      */
-    public Client(URL base) {
+    public Client(String user, URL base) {
         super(base);
+        this.user = user;
+        //initMqtt();
     }
 
     @Override
@@ -33,12 +45,42 @@ public class Client extends RESTCall implements ChatClient {
         return null;
     }
 
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        String msg = new String(message.getPayload());
+        if ("New message".equals(msg)) {
+            // todo: new message should be handled here
+        }
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        // ignire
+    }
+
+    @Override
+    public void connectionLost(Throwable cause) {
+        System.out.println(cause.getLocalizedMessage());
+    }
+
+    private void initMqtt() {
+        try {
+            mqttClient = new MqttClient("tcp://51.124.8.126:1883", "WIF", new MemoryPersistence());
+            mqttClient.connect();
+            mqttClient.setCallback(this);
+            mqttClient.subscribe(this.user);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws MalformedURLException {
-        Client  c = new Client(new URL("http://localhost:8080"));
+        Client  c = new Client("test", new URL("http://localhost:8080"));
         System.out.println(c.getHello());
 
         System.out.println(c.sendMessage("Test", "Hallo Welt!"));
 
         System.out.println(c.getMessages());
     }
+
 }

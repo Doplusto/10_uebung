@@ -73,6 +73,11 @@ In diesem Beispiel verwenden wir **MQTT**. Ein entsprechender MQTT Broker läuft
 Aufgaben:
 1. Ändern Sie den `Server` Code, so daß der Server mit der Benachrichtung startet
 1. Ergänzen Se den `Client` Code um die Subscriber Funktionalität
-1. Testen, testen, testen ...    
+1. Testen, testen, testen ...
+
+**Was passiert, wenn Sie beides starten?**
+
+Leider gibt es Konflikte, wenn der MQTT Client sowohl im Server, als auch im Client verwendet wird. Ändern Sie die Addresse des Servers,
+so daß Sie nur den Client starten müssen. Die Server-Adresse bekommen Sie in der Übung! 
 
     

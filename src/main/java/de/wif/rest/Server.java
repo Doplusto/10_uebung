@@ -1,6 +1,10 @@
 package de.wif.rest;
 
 import com.google.gson.Gson;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +29,9 @@ public class Server {
     // with notifications
     private boolean useNotifications;
 
+    // add MQTT
+    private MqttClient mqttClient;
+
     /**
      * Creates a server instance
      */
@@ -32,6 +39,15 @@ public class Server {
         this.messages = new HashMap<>();
         this.gson = new Gson();
         this.useNotifications = useNotifications;
+        if (this.useNotifications) {
+            try {
+                mqttClient = new MqttClient("tcp://51.124.8.126:1883", "WIF", new MemoryPersistence());
+                mqttClient.connect();
+            } catch (MqttException e) {
+                this.useNotifications = false;
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -93,11 +109,17 @@ public class Server {
      * @param user
      */
     private void sendNotifications(String user) {
-
+        System.out.println("Connected");
+        MqttMessage message = new MqttMessage("New message".getBytes());
+        try {
+            mqttClient.publish(user, message);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        Server s = new Server(false);
+        Server s = new Server(true);
         s.run();
     }
 }
