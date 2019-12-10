@@ -5,7 +5,7 @@ Wirtschaftsinformatik](https://www.th-rosenheim.de/technik/informatik-mathematik
 
 # 10 - HTTP und REST
 
-Diese Übung behandelt speziell das Thema _Web Anwendungen_ und _REST_. Dabie geht es darum mit den verschiedenen Technologien um HTTP, REST, JSON etc. vertraut zu werden.
+Diese Übung behandelt speziell das Thema _Web Anwendungen_ und _REST_. Dabei geht es darum mit den verschiedenen Technologien um HTTP, REST, JSON etc. vertraut zu werden.
 
 > Note: **Die Lösung befindet sich im Branch _Musterlösung_.**
 
@@ -57,7 +57,7 @@ Schreiben Sie einen `Client.java`, der die REST Aufrufe ausführt. Verwenden Sie
 1. Schreiben Sie die Methode `getMessages`
 
 Halten Sie sich jeweils an die gegebenen Methodensignaturen und verwenden Sie die Hilfsmethoden wo möglich. In der Klasse `RESTCall` gibt es entsprechende Methoden, die 
-einen REST-Call absetzen können. Diese haben die Form:;
+einen REST-Call absetzen können. Diese haben die Form:
 - GET  :  `call(RESTCall.GET, "/jokes/random", JokeRepsonse.class);`
 - POST :  `call(RESTCall.POST, "/jokes/add",  MyRequestBodyWhateverItIsInstance, String.class);`
 
